@@ -6,8 +6,8 @@ import os
 import logging
 
 # Paths
-MODEL_PATH = 'model/plant_disease_model.h5'
-CLASSES_PATH = 'model/classes.txt'
+MODEL_PATH = '/tmp/plant_disease_model.h5'
+CLASSES_PATH = '/tmp/classes.txt'
 BUCKET_NAME = 'plantanist-model'
 MODEL_BLOB_NAME = 'plant_disease_model.h5'
 CLASSES_BLOB_NAME = 'classes.txt'

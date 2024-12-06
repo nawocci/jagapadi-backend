@@ -7,8 +7,8 @@ import logging
 app = Flask(__name__)
 
 # Load the model and classes
-model = load_model('model/plant_disease_model.h5')
-classes = load_classes('model/classes.txt')
+model = load_model('/tmp/plant_disease_model.h5')
+classes = load_classes('/tmp/classes.txt')
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
