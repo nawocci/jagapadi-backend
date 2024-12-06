@@ -26,6 +26,21 @@ Start the Flask server:
     python app.py
     ```
 
+## API Endpoints
+
+### POST /predict
+
+- **Description**: Predicts the disease from an uploaded image.
+- **Request**: Multipart form-data with an image file.
+- **Response**: JSON object with the predicted class and confidence score.
+
+    ```json
+    {
+        "predicted_class": "Tomato___Bacterial_spot",
+        "confidence_score": 98.76
+    }
+    ```
+
 ## License
 
 This project is licensed under the MIT License.
