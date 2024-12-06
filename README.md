@@ -32,11 +32,12 @@ Start the Flask server:
 
 - **Description**: Predicts the disease from an uploaded image.
 - **Request**: Multipart form-data with an image file.
-- **Response**: JSON object with the predicted class and confidence score.
+- **Response**: JSON object with the plant, disease, and confidence score.
 
     ```json
     {
-        "predicted_class": "Tomato___Bacterial_spot",
+        "plant": "Tomato",
+        "disease": "Bacterial spot",
         "confidence_score": 98.76
     }
     ```

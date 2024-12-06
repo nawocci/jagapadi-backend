@@ -13,6 +13,7 @@ classes = load_classes('/tmp/classes.txt')
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
+
 @app.route('/predict', methods=['POST'])
 def predict():
     # Check if the image is part of the request
@@ -29,7 +30,21 @@ def predict():
     try:
         logging.info(f"Received image {file.filename} for prediction.")
         predicted_class, confidence_score = classify_image(temp_file.name, model, classes)
-        response = {'predicted_class': predicted_class, 'confidence_score': float(confidence_score)}
+
+        # Format the predicted class
+        try:
+            plant, disease = predicted_class.split('___')
+            plant = plant.replace('_', ' ')
+            disease = disease.replace('_', ' ').title()
+        except ValueError:
+            logging.error(f"Error splitting predicted class '{predicted_class}' into plant and disease.")
+            plant, disease = predicted_class, "Unknown Disease"
+
+        response = {
+            'plant': plant,
+            'disease': disease,
+            'confidence_score': float(confidence_score)
+        }
         logging.info(f"Prediction result: {response}")
         return jsonify(response)
     except RuntimeError as e:
@@ -37,6 +52,7 @@ def predict():
         return jsonify({'error': f"Prediction error: {e}"}), 500
     finally:
         os.remove(temp_file.name)  # Clean up the temporary file
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
