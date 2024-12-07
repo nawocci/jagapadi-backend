@@ -1,16 +1,8 @@
-# app.py
 from flask import Flask, request, jsonify
-from model import classify_image, load_model, load_classes
-from llm import get_disease_description
-import tempfile
-import os
 import logging
+from predictor import predict_disease
 
 app = Flask(__name__)
-
-# Load the model and classes
-model = load_model('/tmp/plant_disease_model.h5')
-classes = load_classes('/tmp/classes.txt')
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -24,39 +16,11 @@ def predict():
 
     file = request.files['image']
 
-    # Save the uploaded file temporarily
-    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-        file.save(temp_file.name)
-
     try:
-        logging.info(f"Received image {file.filename} for prediction.")
-        predicted_class, confidence_score = classify_image(temp_file.name, model, classes)
-
-        # Format the predicted class
-        try:
-            plant, disease = predicted_class.split('___')
-            plant = plant.replace('_', ' ')
-            disease = disease.replace('_', ' ').title()
-        except ValueError:
-            logging.error(f"Error splitting predicted class '{predicted_class}' into plant and disease.")
-            plant, disease = predicted_class, "Unknown Disease"
-
-        # Get the disease description
-        description = get_disease_description(plant, disease)
-
-        response = {
-            'plant': plant,
-            'disease': disease,
-            'confidence_score': float(confidence_score),
-            'description': description
-        }
-        logging.info(f"Prediction result: {response}")
+        response = predict_disease(file)
         return jsonify(response)
     except RuntimeError as e:
-        logging.error(f"Prediction error: {e}")
-        return jsonify({'error': f"Prediction error: {e}"}), 500
-    finally:
-        os.remove(temp_file.name)  # Clean up the temporary file
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
