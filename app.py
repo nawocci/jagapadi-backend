@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import logging
 from predictor import predict_disease
+import os
 
 app = Flask(__name__)
 
