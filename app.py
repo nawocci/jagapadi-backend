@@ -1,5 +1,7 @@
+# app.py
 from flask import Flask, request, jsonify
 from model import classify_image, load_model, load_classes
+from llm import get_disease_description
 import tempfile
 import os
 import logging
@@ -12,7 +14,6 @@ classes = load_classes('/tmp/classes.txt')
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
-
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -40,10 +41,14 @@ def predict():
             logging.error(f"Error splitting predicted class '{predicted_class}' into plant and disease.")
             plant, disease = predicted_class, "Unknown Disease"
 
+        # Get the disease description
+        description = get_disease_description(plant, disease)
+
         response = {
             'plant': plant,
             'disease': disease,
-            'confidence_score': float(confidence_score)
+            'confidence_score': float(confidence_score),
+            'description': description
         }
         logging.info(f"Prediction result: {response}")
         return jsonify(response)
@@ -52,7 +57,6 @@ def predict():
         return jsonify({'error': f"Prediction error: {e}"}), 500
     finally:
         os.remove(temp_file.name)  # Clean up the temporary file
-
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
