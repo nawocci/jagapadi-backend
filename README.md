@@ -44,6 +44,31 @@ Start the Flask server:
     }
     ```
 
+### GET /history
+
+- **Description**: Retrieves user's prediction history
+- **Headers**: 
+  - `token`: Firebase authentication token
+- **Query Parameters**:
+  - `limit` (optional): Number of entries to return. If not specified, returns all entries.
+- **Response**: JSON array of entries ordered by date (newest first)
+
+    ```json
+    {
+        "predictions": [
+            {
+                "id": "prediction_id",
+                "plant": "Tomato",
+                "disease": "Bacterial spot",
+                "description": "...",
+                "confidence_score": 98.76,
+                "date": "2024-03-20 15:30:45",
+                "timestamp": "2024-03-20T15:30:45.123Z"
+            }
+        ]
+    }
+    ```
+
 ## License
 
 This project is licensed under the MIT License.
