@@ -3,6 +3,7 @@ import google.generativeai as genai
 from src.config import GENAI_API_KEY
 from src.utils.image_processing import preprocess_image
 import numpy as np
+from datetime import datetime
 
 # Configure Gemini
 genai.configure(api_key=GENAI_API_KEY)
@@ -24,11 +25,14 @@ class DiseasePredictor:
             plant, condition = self._format_prediction(predicted_class)
             description = self._get_description(plant, condition)
             
+            current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            
             return {
                 'plant': plant,
                 'condition': condition,
                 'confidence_score': confidence_score,
                 'description': description,
+                'date': current_date
             }
         except Exception as e:
             logging.error(f"Prediction error: {e}")
