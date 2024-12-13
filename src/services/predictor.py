@@ -32,7 +32,8 @@ class DiseasePredictor:
                 'condition': condition,
                 'confidence_score': confidence_score,
                 'description': description,
-                'date': current_date
+                'date': current_date,
+                'image_url': img_path
             }
         except Exception as e:
             logging.error(f"Prediction error: {e}")

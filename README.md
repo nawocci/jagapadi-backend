@@ -32,7 +32,7 @@ Start the Flask server:
 
 - **Description**: Predicts the disease from an uploaded image.
 - **Request**: Multipart form-data with an image file.
-- **Response**: JSON object with the plant, disease, description, confidence score, and date.
+- **Response**: JSON object with the plant, disease, description, confidence score, date, and image URL.
 
     ```json
     {
@@ -40,7 +40,8 @@ Start the Flask server:
         "disease": "Bacterial spot",
         "description": "Bacterial spot is a common disease in tomatoes. It is caused by the bacterium Xanthomonas campestris. Symptoms include small, dark spots on the leaves, which may have a yellow halo. The spots may grow in size and merge together, causing the leaves to turn yellow and fall off. The disease is spread through water, so it is important to avoid overhead watering. Copper-based fungicides can be used to control the disease.",
         "confidence_score": 98.76,
-        "date": "2024-03-20 15:30:45"
+        "date": "2024-03-20 15:30:45",
+        "image_url": "https://storage.googleapis.com/plantanist-image/users/user_id/predictions/image.jpg"
     }
     ```
 
@@ -63,7 +64,8 @@ Start the Flask server:
                 "description": "...",
                 "confidence_score": 98.76,
                 "date": "2024-03-20 15:30:45",
-                "timestamp": "2024-03-20T15:30:45.123Z"
+                "timestamp": "2024-03-20T15:30:45.123Z",
+                "image_url": "https://storage.googleapis.com/plantanist-image/users/user_id/predictions/image.jpg"
             }
         ]
     }

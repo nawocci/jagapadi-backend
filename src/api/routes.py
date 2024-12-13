@@ -35,8 +35,8 @@ def init_routes(predictor):
             temp_path = save_temp_image(file)
             prediction = predictor.predict(temp_path)
             
-            # Save to Firebase
-            firebase_service.save_prediction(user_id, prediction)
+            # Save to Firebase, including the image
+            firebase_service.save_prediction(user_id, prediction, temp_path)
             
             return jsonify(prediction)
         except ValueError as e:
