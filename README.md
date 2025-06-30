@@ -32,13 +32,12 @@ Start the Flask server:
 
 - **Description**: Predicts the disease from an uploaded paddy plant image.
 - **Request**: Multipart form-data with an image file.
-- **Response**: JSON object with the plant, disease, description, confidence score, date, and image URL.
+- **Response**: JSON object with the disease, details, confidence score, date, and image URL.
 
     ```json
     {
-        "plant": "Tomato",
-        "disease": "Bacterial spot",
-        "description": "Bacterial spot is a common disease in tomatoes. It is caused by the bacterium Xanthomonas campestris. Symptoms include small, dark spots on the leaves, which may have a yellow halo. The spots may grow in size and merge together, causing the leaves to turn yellow and fall off. The disease is spread through water, so it is important to avoid overhead watering. Copper-based fungicides can be used to control the disease.",
+        "disease": "Bacterial leaf blight",
+        "details": "Bacterial leaf blight is a common disease in rice plants caused by Xanthomonas oryzae. Symptoms include water-soaked lesions on leaves that turn yellow and then brown. The disease spreads rapidly in warm, humid conditions and can significantly reduce yield if not managed properly.",
         "confidence_score": 98.76,
         "date": "2024-03-20 15:30:45",
         "image_url": "https://storage.googleapis.com/jagapadi-image/users/user_id/predictions/image.jpg"
@@ -59,9 +58,8 @@ Start the Flask server:
         "predictions": [
             {
                 "id": "prediction_id",
-                "plant": "Tomato",
-                "disease": "Bacterial spot",
-                "description": "...",
+                "disease": "Brown spot",
+                "details": "Brown spot is a fungal disease affecting rice plants...",
                 "confidence_score": 98.76,
                 "date": "2024-03-20 15:30:45",
                 "timestamp": "2024-03-20T15:30:45.123Z",

@@ -23,15 +23,14 @@ class DiseasePredictor:
             confidence_score = float(np.max(predictions[0]) * 100)
             
             plant, condition = self._format_prediction(predicted_class)
-            description = self._get_description(plant, condition)
+            details = self._get_description(plant, condition)
             
             current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
             return {
-                'plant': plant,
-                'condition': condition,
+                'disease': condition,
                 'confidence_score': confidence_score,
-                'description': description,
+                'details': details,
                 'date': current_date,
                 'image_url': img_path
             }
