@@ -1,17 +1,17 @@
-# Plantanist Backend
+# JagaPadi Backend
 
-This project serves as the backend for the Plantanist app. It is designed to handle various functionalities including:
+This project serves as the backend for the JagaPadi app. It is designed to handle various functionalities including:
 
-- Image-based disease prediction: Users can scan a plant's leaf and receive a prediction of the disease it has.
-- Database management: Include features for storing and managing user data, plant information, and prediction results.
+- Image-based paddy disease prediction: Users can scan a rice plant's leaf and receive a prediction of the disease it has.
+- Database management: Include features for storing and managing user data, paddy plant information, and prediction results.
 - User authentication: The backend will support user registration, login, and authentication to ensure secure access to the app's features.
     
 ## Installation
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/nawocci/plantanist-backend.git
-    cd plantanist-backend
+    git clone https://github.com/nawocci/jagapadi-backend.git
+    cd jagapadi-backend
     ```
 
 2. Install the required packages:
@@ -30,7 +30,7 @@ Start the Flask server:
 
 ### POST /predict
 
-- **Description**: Predicts the disease from an uploaded image.
+- **Description**: Predicts the disease from an uploaded paddy plant image.
 - **Request**: Multipart form-data with an image file.
 - **Response**: JSON object with the plant, disease, description, confidence score, date, and image URL.
 
@@ -41,7 +41,7 @@ Start the Flask server:
         "description": "Bacterial spot is a common disease in tomatoes. It is caused by the bacterium Xanthomonas campestris. Symptoms include small, dark spots on the leaves, which may have a yellow halo. The spots may grow in size and merge together, causing the leaves to turn yellow and fall off. The disease is spread through water, so it is important to avoid overhead watering. Copper-based fungicides can be used to control the disease.",
         "confidence_score": 98.76,
         "date": "2024-03-20 15:30:45",
-        "image_url": "https://storage.googleapis.com/plantanist-image/users/user_id/predictions/image.jpg"
+        "image_url": "https://storage.googleapis.com/jagapadi-image/users/user_id/predictions/image.jpg"
     }
     ```
 
@@ -65,7 +65,7 @@ Start the Flask server:
                 "confidence_score": 98.76,
                 "date": "2024-03-20 15:30:45",
                 "timestamp": "2024-03-20T15:30:45.123Z",
-                "image_url": "https://storage.googleapis.com/plantanist-image/users/user_id/predictions/image.jpg"
+                "image_url": "https://storage.googleapis.com/jagapadi-image/users/user_id/predictions/image.jpg"
             }
         ]
     }

@@ -39,7 +39,7 @@ class FirebaseService:
     def upload_image_to_gcs(user_id: str, image_path: str) -> str:
         try:
             storage_client = storage.Client()
-            bucket = storage_client.bucket('plantanist-image')  # Updated bucket name
+            bucket = storage_client.bucket('jagapadi-image')  # Updated bucket name
             blob = bucket.blob(f'users/{user_id}/predictions/{os.path.basename(image_path)}')
             blob.upload_from_filename(image_path)
             return blob.public_url  # Return the public URL of the uploaded image
