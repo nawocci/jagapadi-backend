@@ -2,7 +2,7 @@ from flask import Flask
 import logging
 import os
 from src.api.routes import api, init_routes
-from src.services.model_loader import load_model, load_classes
+from src.services.model_loader import load_model, get_classes
 from src.services.predictor import DiseasePredictor
 
 # Setup logging
@@ -13,7 +13,7 @@ def create_app():
     
     # Initialize model and predictor
     model = load_model()
-    classes = load_classes()
+    classes = get_classes()
     predictor = DiseasePredictor(model, classes)
     
     # Register routes

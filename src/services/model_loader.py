@@ -4,8 +4,7 @@ import os
 import tensorflow as tf
 from google.cloud import storage
 from src.config import (
-    BUCKET_NAME, MODEL_PATH, CLASSES_PATH,
-    MODEL_BLOB_NAME, CLASSES_BLOB_NAME
+    BUCKET_NAME, MODEL_PATH, MODEL_BLOB_NAME, RICE_DISEASE_CLASSES
 )
 
 def download_file_from_gcs(bucket_name: str, source_blob_name: str, destination_file_name: str):
@@ -29,12 +28,6 @@ def load_model() -> tf.keras.Model:
     except Exception as e:
         raise RuntimeError(f"Error loading model: {e}")
 
-def load_classes() -> list:
-    if not os.path.exists(CLASSES_PATH):
-        download_file_from_gcs(BUCKET_NAME, CLASSES_BLOB_NAME, CLASSES_PATH)
-    
-    try:
-        with open(CLASSES_PATH, 'r') as f:
-            return [line.strip() for line in f.readlines()]
-    except Exception as e:
-        raise RuntimeError(f"Error loading classes: {e}")
+def get_classes() -> list:
+    """Return hardcoded rice disease classes for the new model"""
+    return RICE_DISEASE_CLASSES

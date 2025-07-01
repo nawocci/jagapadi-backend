@@ -4,9 +4,12 @@ import tempfile
 
 def preprocess_image(img_path: str) -> np.ndarray:
     try:
-        img = tf.keras.utils.load_img(img_path, target_size=(256, 256))
-        img_array = tf.keras.utils.img_to_array(img)
-        return np.expand_dims(img_array, axis=0)
+        # Load image with target size 224x224 for the new model
+        img = tf.keras.preprocessing.image.load_img(img_path, target_size=(224, 224))
+        img_array = tf.keras.preprocessing.image.img_to_array(img)
+        # Normalize pixel values to [0, 1] range
+        img_array = np.expand_dims(img_array, axis=0) / 255.0
+        return img_array
     except Exception as e:
         raise ValueError(f"Error preprocessing image: {e}")
 

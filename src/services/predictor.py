@@ -17,18 +17,19 @@ class DiseasePredictor:
     def predict(self, img_path: str) -> dict:
         try:
             img_array = preprocess_image(img_path)
-            predictions = self.model.predict(img_array)
+            predictions = self.model.predict(img_array, verbose=0)
             prediction_index = np.argmax(predictions[0])
             predicted_class = self.classes[prediction_index]
             confidence_score = float(np.max(predictions[0]) * 100)
             
-            plant, condition = self._format_prediction(predicted_class)
-            details = self._get_description(plant, condition)
+            # Format the disease name for display
+            formatted_disease = self._format_disease_name(predicted_class)
+            details = self._get_description(formatted_disease)
             
             current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
             return {
-                'disease': condition,
+                'disease': formatted_disease,
                 'confidence_score': confidence_score,
                 'details': details,
                 'date': current_date,
@@ -38,21 +39,19 @@ class DiseasePredictor:
             logging.error(f"Prediction error: {e}")
             raise RuntimeError(f"Prediction error: {e}")
 
-    def _format_prediction(self, predicted_class: str) -> tuple:
-        try:
-            plant, condition = predicted_class.split('___')
-            return (
-                plant.replace('_', ' '),
-                condition.replace('_', ' ').title()
-            )
-        except ValueError:
-            return predicted_class, "Unknown Condition"
-
-    def _get_description(self, plant: str, disease: str) -> str:
-        if 'healthy' in disease.lower():
-            prompt = f"Write a short one paragraph guide on how to maintain the health of {plant} plants. Include basic care tips like watering, sunlight, and soil requirements."
+    def _format_disease_name(self, predicted_class: str) -> str:
+        """Format disease name for display"""
+        if predicted_class == 'normal':
+            return 'Healthy Rice Plant'
         else:
-            prompt = f"Write a short one paragraph explanation of {disease} disease on {plant}."
+            # Replace underscores with spaces and title case
+            return predicted_class.replace('_', ' ').title()
+
+    def _get_description(self, disease: str) -> str:
+        if 'healthy' in disease.lower() or disease.lower() == 'normal':
+            prompt = f"Write a short one paragraph guide on how to maintain the health of rice plants. Include basic care tips like watering, sunlight, and soil requirements."
+        else:
+            prompt = f"Write a short one paragraph explanation of {disease} disease on rice plants."
         
         response = model_genai.generate_content(prompt)
         return response.text
