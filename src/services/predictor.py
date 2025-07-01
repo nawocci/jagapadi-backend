@@ -49,9 +49,9 @@ class DiseasePredictor:
 
     def _get_description(self, disease: str) -> str:
         if 'healthy' in disease.lower() or disease.lower() == 'normal':
-            prompt = f"Write a short one paragraph guide on how to maintain the health of rice plants. Include basic care tips like watering, sunlight, and soil requirements."
+            prompt = f"Tulis panduan singkat satu paragraf tentang cara merawat kesehatan tanaman padi. Sertakan tips perawatan dasar seperti penyiraman, sinar matahari, dan kebutuhan tanah. Jawab dalam bahasa Indonesia."
         else:
-            prompt = f"Write a short one paragraph explanation of {disease} disease on rice plants."
+            prompt = f"Tulis penjelasan singkat satu paragraf tentang penyakit {disease} pada tanaman padi. Jawab dalam bahasa Indonesia."
         
         response = model_genai.generate_content(prompt)
         return response.text
