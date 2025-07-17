@@ -4,7 +4,7 @@ import os
 MODEL_PATH = '/tmp/final_memory_optimized_mobilenet_model.keras'
 
 # GCS Configuration
-BUCKET_NAME = 'jagapadi-model'
+BUCKET_NAME = 'jagapadi-bucket'
 MODEL_BLOB_NAME = 'final_memory_optimized_mobilenet_model.keras'
 
 # Rice disease class names (hardcoded for new model)
